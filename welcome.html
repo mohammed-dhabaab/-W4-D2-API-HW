@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinner Invitation</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/91b0893a8f.js" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            color: white;
+        }
+
+
+        .logo {
+            color: #72FFFF;
+        }
+
+        .header {
+            box-shadow: 1px 1px 20px 0.1px black;
+        }
+
+        .header-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 40px;
+        }
+
+        .logo-greeting-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-list-container {
+            display: flex;
+            gap: 20px;
+
+        }
+
+        .greeting {
+            color: white;
+        }
+
+        .log-out-icon {
+            color: white;
+        }
+
+
+        .main-unauthorized-container {
+            padding-top: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 40px;
+        }
+
+        .back-home-btn {
+            background-color: #eaeaea;
+            color: black;
+            padding: 8px 40px;
+            width: fit-content;
+            border-radius: 20px;
+        }
+
+        .back-home-btn:hover {
+            background-color: rgb(225, 224, 224);
+        }
+
+        .main-content {
+            padding: 40px 60px;
+        }
+
+        .main-content-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            color: black;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .event-image {
+            border-radius: 10px 10px 0 0;
+            height: 100%;
+        }
+
+        .event-content {
+            padding: 0 20px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .event-title {
+            color: #5800FF;
+        }
+
+        .event-disc {
+            font-size: 18px;
+        }
+
+        .date-time-loc-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .event-details {
+            display: grid;
+            grid-template-columns: 4% 96%;
+            gap: 10px;
+        }
+
+        .event-icons {
+            color: #0096FF;
+        }
+
+        @media (min-width:740px) {
+            .main-content-wrapper {
+                display: grid;
+                grid-template-columns: 2fr 1fr;
+            }
+
+            .event-image {
+                border-radius: 10px 0 0 10px;
+            }
+        }
+
+        .none {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-wrapper">
+            <div class="logo-greeting-container">
+                <div class="logo-container"><i class="logo fa-solid fa-group-arrows-rotate"></i>
+                </div>
+                <h3 class="greeting"></h3>
+            </div>
+
+            <!-- <nav class="nav-container">
+                <ul class="nav-list-container">
+                    <li class="list-item">Home</li>
+                    <li class="list-item">About</li>
+                    <li class="list-item">Contact</li>
+                </ul>
+            </nav> -->
+            <button onclick="logOut()" class="log-out-button">
+                <i class="log-out-icon fa-solid fa-right-from-bracket"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="main-unauthorized-container none">
+        <h1>401 Unauthorized</h1>
+        <button onclick="logOut()" class="back-home-btn">Home</button>
+    </main>
+
+    <main class="main-content">
+        <div class="main-content-wrapper">
+            <div class="event-image-container">
+                <img src="https://plus.unsplash.com/premium_photo-1661774645265-ce387923cb5b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="Dinner" class="event-image">
+            </div>
+
+            <div class="event-content">
+                <h1 class="event-title">Dinner Invitation</h1>
+                <p class="event-disc">Join us for a delightful dinner! Enjoy good food and great company.</p>
+                <div class="date-time-loc-container">
+                    <div class="event-date event-details"><i class="event-icons fa-solid fa-calendar-days"></i>
+                        <span>10/10/2024</span>
+                    </div>
+                    <div class="event-time event-details"><i class="event-icons fa-solid fa-clock"></i> 09:00 PM</div>
+                    <div class="event-location event-details"><i class="event-icons fa-solid fa-location-dot"></i>
+                        Nebula Vista,
+                        Zyvoria
+                        IX, Milky Way.</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const checkAllowance = () => {
+            const allowance = localStorage.getItem("allowance");
+            if (allowance === "false") {
+                document.querySelector(".header").classList.add("none")
+                document.querySelector(".main-content").classList.add("none")
+                document.querySelector(".main-unauthorized-container").classList.remove("none")
+            }
+        }
+        checkAllowance()
+
+        const logOutButton = document.querySelector(".log-out-button")
+
+        function logOut() {
+            window.location.href = "index.html"
+            localStorage.setItem("id", "-1")
+            localStorage.setItem("allowance", "false")
+        }
+
+
+        const apiURL = "https://66e87262b17821a9d9dcbf14.mockapi.io/users/signup/"
+        const greeting = document.querySelector('.greeting')
+        let userName = ""
+        async function getUserName(url = "") {
+            try {
+                const response = await fetch(url)
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const user = await response.json();
+                console.log(user)
+                userName = user.username
+                greeting.innerText = `Hi, ${userName}!`;
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+
+        getUserName(`${apiURL}${localStorage.getItem("id")}`)
+        greeting.innerText = `Hi, ${userName}!`;
+
+    </script>
+</body>
+
+</html>
